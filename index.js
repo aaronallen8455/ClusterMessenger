@@ -34,7 +34,7 @@ mo.init = workers => {
                 return;
             }
 
-            let result = handler(msg._argument);
+            let result = handler.apply(null, msg._arguments);
 
             if (result && result.then && result.catch) {
                 // result is a promise
@@ -97,10 +97,10 @@ mo.register = handler => {
         handlers.set(handlerId, handler);
     }
 
-    return (arg) => {
+    return (...args) => {
         // handle directly if on master thread.
         if (cluster.isMaster) {
-            let result = handler(arg);
+            let result = handler.apply(null, args);
 
             return new Promise(async (resolve, reject) => {
                 // check if the handler is async
@@ -128,7 +128,7 @@ mo.register = handler => {
             process.send({
                 _handlerId: handlerId,
                 _resolverId: resolverId,
-                _argument: arg
+                _arguments: args
             });
         });
     };

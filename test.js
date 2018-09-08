@@ -19,6 +19,10 @@ const square = messenger.register(num => {
     return Promise.resolve(num*num);
 });
 
+const add = messenger.register((a, b) => {
+    return a + b;
+})
+
 if (cluster.isMaster) {
     let numCpus = os.cpus().length;
 
@@ -45,5 +49,9 @@ if (cluster.isMaster) {
 
     testmod.test().then(v => {
         console.log(`from test mod: ${v}`);
+    });
+
+    add(5, 6).then(r => {
+        console.log(`5 + 6 = ${r}`);
     })
 }
