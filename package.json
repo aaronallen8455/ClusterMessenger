@@ -1,0 +1,11 @@
+{
+  "name": "clustermessenger",
+  "version": "1.0.0",
+  "description": "Facilitates messaging between master and worker processes in a clustered environment.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Aaron Allen",
+  "license": "ISC"
+}
