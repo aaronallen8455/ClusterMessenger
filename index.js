@@ -13,14 +13,14 @@ const resolvers = new Map();
 let resolverSeq = 0;
 
 /**
- * Initialized the cluster messager. Should be called only once from the master process only.
- * @param {Worker[]} workers 
+ * Initialize the cluster messenger. 
+ * Should be called only once from the master process after workers have been forked.
  */
-mo.init = workers => {
+mo.init = () => {
     if (cluster.isWorker) return;
 
-    for (let id in workers) {
-        let worker = workers[id];
+    for (let id in cluster.workers) {
+        let worker = cluster.workers[id];
 
         worker.on('message', async msg => {
             if (msg._handlerId === undefined || msg._resolverId === undefined) {

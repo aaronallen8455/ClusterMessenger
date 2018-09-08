@@ -30,7 +30,7 @@ if (cluster.isMaster) {
         cluster.fork();
     }
 
-    messenger.init(cluster.workers);
+    messenger.init();
 
     square(7).then(x => {
         console.log(`7^2=${x}  -- from master process`);
